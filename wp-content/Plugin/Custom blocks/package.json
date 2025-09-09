@@ -1,7 +1,7 @@
 {
   "name": "custom-blocks-plugin",
   "version": "1.0.0",
-  "description": A newsletter-style block with image, source description, and readable expandable text.",
+  "description": "A newsletter-style block with image, source description, and readable expandable text.",
   "main": "src/custom-block-plugin.php",
   "scripts": {
     "build": "webpack --mode production",
