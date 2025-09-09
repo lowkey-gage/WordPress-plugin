@@ -11,8 +11,8 @@ License URI: https://www.gnu.org/licenses/gpl-2.0.html
 This plugin is made to add custom blocks to the Gutenberg editor you typically wouldnt find in the WordPress website editor.
 
 == Installation ==
-1. Upload the plugin folder to `/wp-content/plugins/`
-2. Activate the plugin through the 'Plugins' menu in WordPress
+1. Upload the plugin folder to WordPress
+2. Activate the plugin through the 'Plugins' menu
 3. Start using the new blocks in the editor
 
 == Changelog ==
