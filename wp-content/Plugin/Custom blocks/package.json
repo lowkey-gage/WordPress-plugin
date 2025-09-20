@@ -1,0 +1,33 @@
+{
+  "name": "custom-blocks-plugin",
+  "version": "1.0.0",
+  "description": "A WordPress plugin that generates customizable blocks.",
+  "main": "src/custom-block-plugin.php",
+  "scripts": {
+    "build": "wp-scripts build",
+  "start": "wp-scripts start"
+  },
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "blocks",
+    "gutenberg"
+  ],
+  "author": "Gage W. Reed",
+  "license": "GPL-2.0-or-later",
+  "dependencies": {
+    "@wordpress/block-editor": "^latest",
+    "@wordpress/blocks": "^latest",
+    "@wordpress/components": "^latest",
+    "@wordpress/element": "^latest",
+    "@wordpress/i18n": "^latest",
+    "@wordpress/scripts": "^latest"
+  },
+  "devDependencies": {
+    "webpack": "^latest",
+    "webpack-cli": "^latest",
+    "babel-loader": "^latest",
+    "@babel/core": "^latest",
+    "@babel/preset-env": "^latest"
+  }
+}
