@@ -9,11 +9,29 @@
 
 
 /*
-* Register all blocks in the /blocks/ folder.
-*/
+ * Register all blocks in the /blocks/ folder.
+ */
 function cbp_register_blocks() {
-    if ( function_exists( 'register_block_type' ) ) {
-    register_block_type( __DIR__ . '/blocks/newsletter-block' );
-}}
+    if ( ! function_exists( 'register_block_type' ) ) {
+        return;
+    }
+
+    $blocks_dir = __DIR__ . '/blocks';
+    if ( ! is_dir( $blocks_dir ) ) {
+        return;
+    }
+
+    $items = scandir( $blocks_dir );
+    foreach ( $items as $item ) {
+        if ( in_array( $item, array( '.', '..' ), true ) ) {
+            continue;
+        }
+
+        $block_path = $blocks_dir . '/' . $item;
+        if ( is_dir( $block_path ) ) {
+            register_block_type( $block_path );
+        }
+    }
+}
 add_action( 'init', 'cbp_register_blocks' );
  
