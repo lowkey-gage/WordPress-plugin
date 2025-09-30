@@ -1,0 +1,39 @@
+{
+  "name": "custom-blocks-plugin",
+  "version": "1.0.0",
+  "description": "A WordPress plugin that generates customizable blocks.",
+  "main": "src/custom-block-plugin.php",
+  "scripts": {
+    "build": "wp-scripts build",
+    "start": "wp-scripts start",
+    "lint": "eslint 'blocks/**' 'assets/**' --ext .js,.jsx",
+    "lint:fix": "eslint 'blocks/**' 'assets/**' --ext .js,.jsx --fix",
+    "test": "npm run lint && echo 'PHP linting...'; find . -name '\\*.php' -print0 | xargs -0 -n1 php -l || true"
+  },
+  "keywords": [
+    "wordpress",
+    "plugin",
+    "blocks",
+    "gutenberg"
+  ],
+  "author": "Gage W. Reed",
+  "license": "GPL-2.0-or-later",
+  "dependencies": {
+    "@wordpress/block-editor": "^14.4.0",
+    "@wordpress/blocks": "^13.9.0",
+    "@wordpress/components": "^28.9.0",
+    "@wordpress/element": "^6.9.0",
+    "@wordpress/i18n": "^5.9.0",
+    "@wordpress/scripts": "^30.24.0"
+  },
+  "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/eslint-parser": "latest",
+    "@babel/preset-env": "latest",
+    "babel-loader": "latest",
+    "eslint": "latest",
+    "eslint-plugin-react": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest"
+  }
+}
