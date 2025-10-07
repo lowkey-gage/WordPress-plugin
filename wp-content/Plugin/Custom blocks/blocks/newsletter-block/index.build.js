@@ -23,6 +23,7 @@
     });
   };
   var Button = (wp.components && wp.components.Button) || function (props) { return el('button', props, props.children); };
+  var MediaUpload = (wp.blockEditor && wp.blockEditor.MediaUpload) || (wp.editor && wp.editor.MediaUpload) || null;
 
   registerBlockType('custom-blocks-plugin/newsletter-block', {
     edit: function (props) {
@@ -61,15 +62,30 @@
           value: heading,
           onChange: function (value) { setAttributes({ heading: value }); }
         }),
+        // MediaUpload button (if available) and a URL input so users can paste a direct URL.
         el('div', null,
-          el('input', {
+          MediaUpload ? el(MediaUpload, {
+            onSelect: function (media) {
+              var url = '';
+              if (media) {
+                url = media.url || media.source_url || (media.sizes && media.sizes.full && media.sizes.full.url) || '';
+              }
+              if (url) {
+                setAttributes({ imageUrl: url });
+              }
+            },
+            allowedTypes: ['image'],
+            render: function (obj) { return el(Button, { onClick: obj.open, variant: 'primary' }, imageUrl ? 'Change Image' : 'Upload Image'); }
+          }) : null,
+          el('div', null, el('input', {
             type: 'text',
             placeholder: 'Image URL',
             value: imageUrl,
             onChange: function (e) { setAttributes({ imageUrl: e.target.value }); }
-          })
+          }))
         ),
-        imageUrl && el('img', { src: imageUrl, alt: imageDesc }),
++        // Preview in editor
+        imageUrl && el('img', { src: imageUrl, alt: imageDesc, style: { maxWidth: '100%', height: 'auto', marginBottom: '8px' } }),
         imageDesc && el('p', { className: 'source' }, imageDesc),
         el(RichText, {
           tagName: 'p',
