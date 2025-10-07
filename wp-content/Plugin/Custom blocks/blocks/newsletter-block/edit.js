@@ -10,7 +10,7 @@ export default function Edit({ attributes, setAttributes }) {
         <div {...useBlockProps()}>
             <InspectorControls>
                 {/* Title and source desc */}
-                <PanelBody title="Newsletter Settings">  
+                <PanelBody title="Newsletter Settings">
                     <TextControl
                         label="Source Description"
                         value={imageDesc}
@@ -26,9 +26,15 @@ export default function Edit({ attributes, setAttributes }) {
                 onChange={(value) => setAttributes({ heading: value })}
             />
 
+            {/* Media upload button (opens media library) */}
             <MediaUpload
-                /* Image upload */
-                onSelect={(media) => setAttributes({ imageUrl: media.url })}
+                onSelect={(media) => {
+                    // Some WP versions return `url`, others `source_url` — try both.
+                    const url = media && (media.url || media.source_url || (media.sizes && media.sizes.full && media.sizes.full.url));
+                    if (url) {
+                        setAttributes({ imageUrl: url });
+                    }
+                }}
                 allowedTypes={['image']}
                 render={({ open }) => (
                     <Button onClick={open} variant="primary">
@@ -37,7 +43,22 @@ export default function Edit({ attributes, setAttributes }) {
                 )}
             />
 
-            {imageUrl && <img src={imageUrl} alt={imageDesc} />}
+            {/* Also allow pasting an image URL (useful in environments without media library) */}
+            <div style={{ marginTop: '8px', marginBottom: '8px' }}>
+                <TextControl
+                    label="Image URL (paste or enter a direct URL)"
+                    value={imageUrl}
+                    onChange={(value) => setAttributes({ imageUrl: value })}
+                    placeholder="https://example.com/image.jpg"
+                />
+            </div>
+
+            {/* Preview immediately in the editor so the user can confirm the image */}
+            {imageUrl ? (
+                // eslint-disable-next-line jsx-a11y/alt-text
+                <img src={imageUrl} alt={imageDesc || 'Newsletter image'} style={{ maxWidth: '100%', height: 'auto', marginBottom: '8px' }} />
+            ) : null}
+
             {imageDesc && <p className="source">{imageDesc}</p>}
 
             <RichText
